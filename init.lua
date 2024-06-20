@@ -11,6 +11,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+---- Get the Neovim configuration directory
+local config_path = vim.fn.stdpath('config')
+
+-- Set the package path to include the 'lua' directory within the config path
+package.path = config_path .. '/?.lua;' .. config_path .. '/?/init.lua'
+
+
 require('ahmad.lazy')
 require('lspconfig').ruff.setup{}
 require('ahmad.remap')
